@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background-color: #ffffff;
+}
+
+nav{
+  background-color: rgb(21, 84, 136);
+  color:white;
+  font-family: "Gill Sans", sans-serif;
+}

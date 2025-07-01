@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply bg-gray-700 text-white p-4 rounded-lg hover:bg-gray-600 transition-colors font-semibold text-lg;
+  }
+  
+  .btn-op {
+    @apply bg-orange-500 text-white p-4 rounded-lg hover:bg-orange-400 transition-colors font-semibold text-lg;
+  }
+  
+  .btn-sci {
+    @apply bg-gray-600 text-white p-4 rounded-lg hover:bg-gray-500 transition-colors font-semibold text-lg;
+  }
+  
+  .btn-danger {
+    @apply bg-red-500 text-white p-4 rounded-lg hover:bg-red-400 transition-colors font-semibold text-lg;
+  }
+  
+  .btn-eq {
+    @apply bg-green-500 text-white p-4 rounded-lg hover:bg-green-400 transition-colors font-semibold text-lg;
+  }
+}@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply bg-gray-700 text-white p-4 rounded-lg hover:bg-gray-600 transition-colors font-semibold text-lg;
+  }
+  
+  .btn-op {
+    @apply bg-orange-500 text-white p-4 rounded-lg hover:bg-orange-400 transition-colors font-semibold text-lg;
+  }
+  
+  .btn-sci {
+    @apply bg-gray-600 text-white p-4 rounded-lg hover:bg-gray-500 transition-colors font-semibold text-lg;
+  }
+  
+  .btn-danger {
+    @apply bg-red-500 text-white p-4 rounded-lg hover:bg-red-400 transition-colors font-semibold text-lg;
+  }
+  
+  .btn-eq {
+    @apply bg-green-500 text-white p-4 rounded-lg hover:bg-green-400 transition-colors font-semibold text-lg;
+  }
+}

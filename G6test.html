@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G6 Gráfico en Vanilla JS</title>
+    <script src="https://unpkg.com/@antv/g6@5/dist/g6.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        #container {
+            border: 2px solid black;
+            margin: 10px;
+            width: 500px;
+            height: 500px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>G6 Gráfico con Vanilla JS</h1>
+
+    <div id="container"></div>
+
+    <button id="addNodeButton">Agregar Nodo</button>
+
+    <script>
+        // Inicializa las variables para el gráfico
+        const { Graph } = G6;
+        let graph = null;
+        const container = document.getElementById('container');
+        const addNodeButton = document.getElementById('addNodeButton');
+
+        // Datos iniciales del gráfico
+        let graphData = {
+            nodes: [
+                { id: "node-1", label: "Nodo 1" },
+                { id: "node-2", label: "Nodo 2" }
+            ],
+            edges: [
+                { source: "node-1", target: "node-2" }
+            ]
+        };
+
+        // Función para inicializar el gráfico
+        function initializeGraph() {
+            if (!container) {
+                console.error('El contenedor del gráfico no se encontró.');
+                return;
+            }
+
+            // Crea una nueva instancia de Graph
+            graph = new Graph({
+                container: container,
+                width: container.offsetWidth,
+                height: container.offsetHeight,
+                data: graphData, // Carga los datos iniciales
+                behaviors: ['drag-canvas', 'zoom-canvas', 'click-select','drag-element'],
+                plugins: [
+                    {
+                        key: 'minimap',
+                        type: 'minimap',
+                        size: [120, 80],
+                        border: "1px solid black"
+                    },
+                ],
+                // Ajusta el diseño si es necesario, por ejemplo:
+                // layout: {
+                //     type: 'force', // Puedes usar un diseño de fuerza para una mejor visualización
+                //     preventOverlap: true,
+                //     linkDistance: 100,
+                //     nodeStrength: -30,
+                //     edgeStrength: 0.1,
+                // },
+            });
+
+            // Renderiza el gráfico
+            graph.render();
+
+            console.log('Gráfico G6 inicializado.');
+        }
+
+        // Función para agregar un nuevo nodo
+        function addNewNode() {
+            // Genera un ID único para el nuevo nodo
+            const newNodeId = `node-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+            const newNode = { id: newNodeId, label: `Nuevo Nodo ${graphData.nodes.length + 1}` };
+
+            // Agrega el nuevo nodo a los datos existentes (mutando la copia local es aceptable aquí)
+            graphData.nodes.push(newNode);
+
+            // Actualiza los datos en el gráfico G6 y lo renderiza
+            // En G6 v5.x, usa setData() y render() para actualizar el gráfico completo.
+            graph.setData({graphData});
+            graph.render();
+
+            console.log(`Nodo "${newNode.id}" agregado.`);
+        }
+
+        // --- Event Listeners ---
+        // Llama a initializeGraph cuando el DOM esté completamente cargado
+        document.addEventListener('DOMContentLoaded', initializeGraph);
+
+        // Agrega el event listener al botón
+        addNodeButton.addEventListener('click', addNewNode);
+
+        // Opcional: Asegúrate de que el gráfico se redibuje si el contenedor cambia de tamaño
+        window.addEventListener('resize', () => {
+            if (graph && container) {
+                graph.changeSize(container.offsetWidth, container.offsetHeight);
+                graph.render(); // Vuelve a renderizar después de cambiar el tamaño
+            }
+        });
+    </script>
+
+</body>
+</html>
