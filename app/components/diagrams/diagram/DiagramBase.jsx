@@ -53,7 +53,7 @@ export default function DiagramInterface() {
     const [edgeColor, setEdgeColor] = useState('#e2e2e2');
     const [showLabels, setShowLabels] = useState(true);
     const [animationEnabled, setAnimationEnabled] = useState(true);
-    const [isShiftPressed, setIdShiftPressed] = useState(false);
+    const [isShiftPressed, setIfShiftPressed] = useState(false);
 
     let graphOptions = {}
 
@@ -116,19 +116,6 @@ export default function DiagramInterface() {
     useEffect(() => {
 
         // actualizar nodos seleccionados, si no los hay cambiar todos
-        if (selectedNodes.length !== 0 || selectedEdges.length !== 0) {
-            console.log(2)
-            selectedNodes.forEach((id) => {
-                console.log(id)
-                let { type, style } = getNodeConfig()
-                graph.current.updateNodeData([{ id: id, style: style }])
-                graph.current.draw();
-            })
-            graph.current.render();
-            console.log(graph.current.getNodeData());
-            return
-        }
-        console.log(1)
         graphOptions = {
             container: containerRef.current,
             width: containerRef.current.offsetWidth - 5,
@@ -304,12 +291,12 @@ export default function DiagramInterface() {
 
     document.addEventListener("keydown", (e) => {
         if (e.key === "Shift") {
-            setIdShiftPressed(true);
+            setIfShiftPressed(true);
         }
     })
     document.addEventListener("keyup", (e) => {
         if (e.key === "Shift") {
-            setIdShiftPressed(false);
+            setIfShiftPressed(false);
         }
 
     })
