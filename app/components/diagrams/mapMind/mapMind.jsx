@@ -209,6 +209,9 @@ class MindmapNode extends BaseNode {
 
     drawAddShape(attributes, container) {
         const addStyle = this.getAddStyle(attributes);
+        console.log("x & y")
+        console.log(addStyle.x)
+        console.log(addStyle.y)
         const addBarStyle = this.getAddBarStyle(attributes);
         this.upsert('add-bar', Rect, addBarStyle, container);
         const btn = this.upsert('add', Badge, addStyle, container);
@@ -259,7 +262,8 @@ class MindmapEdge extends CubicHorizontal {
 
         const [, tp] = this.getEndpoints(attributes);
         const sign = this.sourceNode.getCenter()[0] < this.targetNode.getCenter()[0] ? 1 : -1;
-        return [...path, ['L', tp[0] + labelWidth * sign, tp[1]]];
+ 
+        return [...path, ['L', tp[0] + (labelWidth) * sign, tp[1]]];
     }
 }
 
@@ -552,7 +556,7 @@ export default function MapMind() {
             edge: {
                 type: 'mindmap',
                 style: {
-                    lineWidth: 3,
+                    lineWidth: 8,
                     stroke: function (data) {
                         return this.getNodeData(data.target).style.color || '#99ADD1';
                     },
@@ -567,7 +571,7 @@ export default function MapMind() {
                 getHGap: () => 60,
                 animation: false,
             },
-            behaviors: ['drag-canvas', 'zoom-canvas', 'collapse-expand-tree'],
+            behaviors: ['drag-canvas', 'zoom-canvas', 'collapse-expand-tree', 'drag-element'],
             transforms: ['assign-color-by-branch'],
             animation: false,
         });
